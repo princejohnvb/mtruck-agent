@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
     <widget xmlns   = "http://www.w3.org/ns/widgets"
         xmlns:gap   = "http://phonegap.com/ns/1.0"
-        id          = "com.mtruckDemo.agentTest"
-        versionCode = "10"
+        id          = "com.agent.mtruck"
+        versionCode = "11"
         version     = "1.0.0" >
 
     <!-- versionCode is Android only -->
@@ -24,32 +24,32 @@
     <!--<platform name="winphone"/>-->
 
 
-    <!--<splash platform="android" qualifier="port-hdpi" src="splash/android/splash.png" />-->
-    <!--<splash src="splash.png"/>-->
+    <!--&lt;!&ndash;<splash platform="android" qualifier="port-hdpi" src="splash/android/splash.png" />&ndash;&gt;-->
+    <!--&lt;!&ndash;<splash src="splash.png"/>&ndash;&gt;-->
 
-    <preference name = "android-minSdkVersion" value="22" />
-    <preference name = "android-maxSdkVersion" value="26" />
-    <preference name = "android-targetSdkVersion" value="22" />
+    <!--<preference name = "android-minSdkVersion" value="22" />-->
+    <!--<preference name = "android-maxSdkVersion" value="26" />-->
+    <!--<preference name = "android-targetSdkVersion" value="22" />-->
 
-    <preference name="deployment-target" value="7.0" />
+    <!--<preference name="deployment-target" value="7.0" />-->
 
-    <preference name="orientation" value="portrait" />
-    <preference name="fullscreen" value="true" />
-    <preference name="KeepRunning" value="false" />
-    <preference name="SplashScreen" value="screen"/>
-    <preference name="android-build-tool" value="gradle" />
+    <!--<preference name="orientation" value="portrait" />-->
+    <!--<preference name="fullscreen" value="true" />-->
+    <!--<preference name="KeepRunning" value="false" />-->
+    <!--<preference name="SplashScreen" value="screen"/>-->
+    <!--<preference name="android-build-tool" value="gradle" />-->
 
-    <plugin name="cordova-plugin-x-socialsharing" source="npm" />
-    <plugin name="cordova-plugin-webintent2" source="npm"/>
-    <plugin name="cordova-plugin-admobpro" source="npm"/>
-    <plugin name="cordova-plugin-network-information" source="npm"/>
-    <plugin name="cordova-plugin-x-toast" source="npm"/>
-    <plugin name="checkinternet" source="npm"/>
-    <plugin name="cordova-plugin-inappbrowser-wkwebview" source="npm"/>
-    <plugin name="cordova-cookie-sharing" source="npm"/>
-    <plugin name="cordova-plugin-file-chooser" source="npm"/>
-    <plugin name="cordova-plugin-whitelist" source="npm"/>
-    <plugin name="cordova-plugin-splashscreen" source="npm" />
+    <!--<plugin name="cordova-plugin-x-socialsharing" source="npm" />-->
+    <!--<plugin name="cordova-plugin-webintent2" source="npm"/>-->
+    <!--<plugin name="cordova-plugin-admobpro" source="npm"/>-->
+    <!--<plugin name="cordova-plugin-network-information" source="npm"/>-->
+    <!--<plugin name="cordova-plugin-x-toast" source="npm"/>-->
+    <!--<plugin name="checkinternet" source="npm"/>-->
+    <!--<plugin name="cordova-plugin-inappbrowser-wkwebview" source="npm"/>-->
+    <!--<plugin name="cordova-cookie-sharing" source="npm"/>-->
+    <!--<plugin name="cordova-plugin-file-chooser" source="npm"/>-->
+    <!--<plugin name="cordova-plugin-whitelist" source="npm"/>-->
+    <!--<plugin name="cordova-plugin-splashscreen" source="npm" />-->
 
 
 </widget>
