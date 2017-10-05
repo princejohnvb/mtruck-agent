@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mTruckFE.css" >
+</head>
+
+<body>
+    <header class="navbar-header container"> 
+        <div class="col-xs-12 hamburger-block">
+            <div class="col-xs-2 hamburger">
+                <button aria-controls="bs-navbar" aria-expanded="false" class="navbar-toggle collapsed pull-left" data-target="#bs-navbar" data-toggle="collapse" type="button"> 
+                    <span class="sr-only">Toggle navigation</span> 
+                    <span class="icon-bar"></span> 
+                    <span class="icon-bar"></span> 
+                    <span class="icon-bar"></span> 
+                </button> 
+            </div>
+            <div class="col-xs-10 back-button">
+                <a href="#" class="btn btn-primary btn-sm">Back</a>
+            </div>
+        </div>
+        
+        <div id="includedMobileMenu"></div>
+        <div class="col-xs-12 page-heading">
+            <h1>Truck Requests Details</h1>
+        </div>  
+    </header>
+
+    <section class="container wrapper">
+        <div class="col-sm-9">
+            <div class="tab">
+                <button class="tablink col-xs-6" onclick="trip_order(event, 'Scheduled')">Requests</button>
+            </div>
+
+
+            <div id="Scheduled" class="tabcontents active">
+                <div class="accord">
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-6"><label>#123</label></div>
+                        <div class="col-sm-6 col-xs-6"><label>100 ton</label></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-6"><label>Ramesh</label></div>
+                        <div class="col-sm-6 col-xs-6"><label>9890001264</label></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-6"><label>5 trucks</label></div>
+                        <div class="col-sm-6 col-xs-6"><label>cement</label></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-6"><label>Bangalore</label></div>
+                        <div class="col-sm-6 col-xs-6"><label>Chennai</label></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-6"><label>Status:</label></div>
+                        <div class="col-sm-6 col-xs-6"><label>Assign Driver's</label></div>
+                    </div>
+                </div>
+
+                <div class="accord">
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-6"><label>#123</label></div>
+                        <div class="col-sm-6 col-xs-6"><label>100 ton</label></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-6"><label>Ramesh</label></div>
+                        <div class="col-sm-6 col-xs-6"><label>9890001264</label></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-6"><label>5 trucks</label></div>
+                        <div class="col-sm-6 col-xs-6"><label>cement</label></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-6"><label>Bangalore</label></div>
+                        <div class="col-sm-6 col-xs-6"><label>Chennai</label></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-6"><label>Status:</label></div>
+                        <div class="col-sm-6 col-xs-6"><label>Waiting for driver</label></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="includedContent" class="col-sm-3"></div>
+    </section>
+
+    <script>
+
+      $(document).ready(function () {
+        var acc = document.getElementsByClassName("accord");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+          acc[i].onclick = function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+              panel.style.display = "none";
+            }
+            else {
+              panel.style.display = "block";
+            }
+          }
+        }
+      });
+
+      function trip_order(evt, tripOrder) {                                       //accordion function --my_trip_order.html
+
+        var i, tabcontents, tablink;
+        tabcontents = document.getElementsByClassName("tabcontents");
+        for (i = 0; i < tabcontents.length; i++) {
+          tabcontents[i].style.display = "none";
+        }
+        tablink = document.getElementsByClassName("tablink");
+        for (i = 0; i < tablink.length; i++) {
+          tablink[i].className = tablink[i].className.replace(" active", "");
+        }
+        document.getElementById(tripOrder).style.display = "block";
+        evt.currentTarget.className += " active";
+        document.getElementById("defaultOpen");
+
+      }
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/global.js"></script>
+
+</body>
+</html>

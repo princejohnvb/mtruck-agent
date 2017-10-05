@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mTruckFE.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</head>
+<body>
+
+    <header class="navbar-header container">
+        <div class="col-xs-12 hamburger-block">
+            <div class="col-xs-2 hamburger">
+                <button aria-controls="bs-navbar" aria-expanded="false" class="navbar-toggle collapsed pull-left" data-target="#bs-navbar" data-toggle="collapse" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="col-xs-10 back-button">
+                <a href="#" class="btn btn-primary btn-sm">Back</a>
+            </div>
+        </div>
+        <div id="includedMobileMenu"></div>
+        <div class="col-xs-12 page-heading">
+            <h1>User Profile</h1>
+        </div>
+    </header>
+
+
+    <section class="container wrapper">
+        <h6 class="required-field">* Required Fields</h6>
+        <div class="col-sm-9">
+            <div class="custom_size">
+                <form name="user_profile_form">
+                    <div class="form-group">
+                        <label><strong class="required-field">*</strong>Your Name:</label>
+                        <input type="text" class="form-control" id="fname" required><br>
+                    </div>
+
+                    <input type="hidden" name="Phone" class="form-control" id="usr_phone">
+                    <input type="hidden" name="Email" class="form-control" id="usr_email">
+
+
+                    <div class="form-group" >
+                        <div id="myDiv">
+                            <select class="btn btn-default form-control" id="typ">
+                                <option value="agent">Agent</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>City:</label>
+                            <select class="btn btn-default form-control" id="city_id">
+
+                            </select>
+                    </div>
+                    <div class="form-group">
+                        <label>New Preferred Routes:</label>&nbsp;
+                        <!--<button class="btn btn-primary" id="add_field"></button>-->
+                        <div id="preferred_route">
+
+                            <label>Source:</label>
+                            <select class="btn btn-default form-control" id="source_id" >
+
+                            </select>
+                            <br><br>
+                            <label>Destination:</label>
+                            <select class="btn btn-default form-control" id="destination_id" >
+
+                            </select>
+
+                        </div>
+                        <br>
+                        <div>
+                            <label>Other Preferred Routes:</label>
+                            <ul id="old_preferred_routes">
+
+                            </ul>
+                        </div>
+                    </div>
+
+
+
+                    <div id="identity_doc">
+                        <label><strong class="required-field">This functionality is not working</strong></label>
+                        <div class="form-group">
+                            <label>Identity Doc:</label>
+
+                            <select name="id_docs" class="btn btn-default" id="doc_types">
+
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Reference Id:</label><input type="text" class="form-control" id="refer_id"><br>
+                            <input type="file" id="file" class="btn btn-default"><br>
+                            <button class="btn btn-success"  id="upload_doc">Upload</button>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="center-align">
+                        <input type="button" value="Submit" class="btn btn-success" id="confirm_btn">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="includedContent" class="col-sm-3"></div>
+
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="js/oa_profilepage.js"></script>
+    <script src="js/global.js"></script>
+
+</body>
+</html>

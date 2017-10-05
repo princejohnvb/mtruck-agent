@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mTruckFE.css">
+</head>
+
+<body onload="triggerAllFreight()">
+
+<header class="navbar-header container">
+    <div class="col-xs-12 hamburger-block">
+        <div class="col-xs-2 hamburger">
+            <button aria-controls="bs-navbar" aria-expanded="false" class="navbar-toggle collapsed pull-left" data-target="#bs-navbar" data-toggle="collapse" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="col-xs-10 back-button">
+            <a href="#" class="btn btn-primary btn-sm">Back</a>
+        </div>
+    </div>
+
+    <div id="includedMobileMenu"></div>
+    <div class="col-xs-12 page-heading">
+        <h1>TripOrder #<span id="trip-id"></span></h1>
+    </div>
+</header>
+
+<section class="container wrapper">
+
+    <div class="col-sm-9">
+
+        <div class="tab">
+            <button id="show_all" class="tablinks col-xs-4 col-sm-4" onclick="list(event, 'trips')">Trips</button>
+            <button  class="tablinks col-xs-4 col-sm-4" onclick="list(event, 'Scheduled')">Freight</button>
+            <button class="tablinks col-xs-4 col-sm-4" onclick="list(event, 'OnTrip')">Expenses</button>
+        </div>
+
+        <h4 class="freight-title"><span id="from-loc"></span> - <span id="to-loc"></span></h4>
+
+        <div id="trips" class="tabcontents">
+            <div id="trips-content"></div>
+        </div>
+
+
+        <div id="Scheduled" class="tabcontents">
+
+        </div>
+
+        <div id="OnTrip" class="tabcontents">
+
+        </div>
+
+
+    </div>
+
+    <div id="includedContent" class="col-sm-3"></div>
+</section>
+
+<script>
+    list(event, 'trips');
+
+  //*********************************************ACCORDION**********************
+
+  var acc = document.getElementsByClassName("accord");
+  var i;
+
+  for (i = 0; i < acc.length; i++) {
+    acc[i].onclick = function(){
+      this.classList.toggle("active");
+      var panel = this.nextElementSibling;
+      if(panel){
+          if (panel.style.display === "block") {
+              panel.style.display = "none";
+          } else {
+              panel.style.display = "block";
+          }
+      }
+    }
+  }
+  //***************************************LIST FUNCTION*************************
+  function list(evt, typeName) {                                       //accordion function --list_user.html
+
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontents");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(typeName).style.display = "block";
+    evt.currentTarget.className += " active";
+    document.getElementById("defaultOpen");
+  }
+
+
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/global.js"></script>
+
+<script>
+
+    function triggerAllFreight() {
+//        tripsContent('Scheduled-content','http://mtruck.in/api/triprequest/received1?limit=10&offset=0&state[]=open&state[]=locked');
+//        tripsContent('OnTrip-content','http://mtruck.in/api/triprequest/received1?limit=10&offset=0&state[]=on_trip');
+        tripsContent('trips-content','http://mtruck.in/api/triprequest/get/' + tripRequestId +'?with[]=loadingPoint&with[]=unLoadingPoint&with[]=Trips.tripOperators.user');
+    }
+
+    //    var loadRequestId = getParameterByName('loadRequestId');
+    var tripRequestId = getParameterByName('tripRequestId');
+
+    //Getting Query parameter from url
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    function tripsContent(id, url) {
+        if(!tripRequestId){
+            alert('Invalid trip req');
+            return;
+        }
+
+        var accessToken = getCookie('accesstoken');
+        var data = null;
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+
+                var p = JSON.parse(this.responseText);
+//                console.log(p);
+                document.getElementById('from-loc').innerHTML = p.loading_point.city_name;
+                document.getElementById('to-loc').innerHTML = p.un_loading_point.city_name;
+                document.getElementById('trip-id').innerHTML = p.id;
+
+                var arrayLength = p.trips.length;
+                for (var i = 0; i < arrayLength; i++) {
+                    append_data(p,p.trips[i], id)
+                }
+
+
+            }
+        });
+
+        xhr.open("GET", url);
+        xhr.setRequestHeader("accept", "application/json");
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+        xhr.send(data);
+
+    }
+
+    function getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+
+    function append_data(tripReq,trips, id) {
+
+        console.log(trips);
+//        console.log(tripReq.freight);
+
+        var html = '<div class="accord">';
+
+        html += '<div class="row">';
+        html += '<div class="col-sm-6 col-xs-6"><span>Trip #'+trips.id+'</span></div>';
+        if(trips.load_weight){
+            html += '<div class="col-sm-6 col-xs-6"><span>'+ trips.load_weight +' Ton</span></div>';
+        }else{
+            html += '<div class="col-sm-6 col-xs-6"><span><a href="#">Add load</a></span></div>';
+        }
+        html += '</div>';
+
+        html += '<div class="row">';
+        html += '<div class="col-sm-6 col-xs-6"><span>'+ trips.truck.reg_no +'</span></div>';
+        if(trips.trip_operators.length){
+            html += '<div class="col-sm-6 col-xs-6"><span>'+ trips.trip_operators[0].user.name +'</span></div>';
+        }else {
+            html += '<a href="#">Assign Driver</a>';
+        }
+
+        html += '<br />';
+        html += '<br />';
+        html += '<h4>Quick Actions:</h4>';
+
+        html += '<ul>';
+        html += '<li><a href="#">Replace Truck</a></li>';
+        html += '<li><a href="#">Assign Driver / Replace Drivers</a></li>';
+        html += '<li><a href="#">Add/update Load</a></li>';
+        html += '<li><a href="#">Remove this trip</a></li>';
+        html += '</ul>';
+
+        html += '</div>';
+
+        html += '</div>';
+
+        document.getElementById(id).innerHTML += html;
+
+    }
+</script>
+</body>
+</html>

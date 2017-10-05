@@ -1,0 +1,498 @@
+body {
+  font-family: "Lato", sans-serif;
+  /*margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid black;
+  padding-bottom: 30%;
+  padding-top: 1%;*/
+}
+
+
+/* Style the tab */
+div.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+div.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+div.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+div.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+button.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+button.accordion.active, button.accordion:hover {
+  background-color: #ddd;
+}
+
+div.panel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  float: right;
+}
+
+.rmbtn{
+  float: right;
+  background-color: transparent;
+  border-radius: 30px;
+  border: 1px solid black;
+
+}
+
+#navigation_bar{
+  /*position:absolute;*/
+  background-color:white;
+  /*left: 0%;*/
+  /*width: 12%;*/
+}
+
+.header{
+  /*background-attachment: fixed;*/
+  background-color: #1E90FF;
+  /*background-size: cover;*/
+  /*width:100%;*/
+  /*height: 6vh;*/
+  color: white;
+  font-family: "Lato", sans-serif;
+  /*font-size: 25px;*/
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*justify-content: center;*/
+  /*align-items:left;*/
+
+}
+
+.tabs{
+  height:20%;
+  border: 1px solid black;
+}
+
+
+#add_field {
+  background: url("../image/plus.png");
+  background-size: cover;
+  width: 35px;
+  height:35px;
+}
+
+
+/*#add_docs{*/
+  /*background: url("../image/plus.png");*/
+  /*background-size: cover;*/
+  /*width: 35px;*/
+  /*height:35px;*/
+/*}*/
+
+#add_doc{
+  background: url("../image/add.png");
+  background-size: cover;
+  width: 45px;
+  height:45px;
+  border: none;
+}
+
+
+/*.navbar-toggle  {*/
+  /**/
+/*}*/
+
+
+/*#drop_btn {*/
+
+  /*margin-top: 50%;*/
+  /*margin-left: 50px;*/
+  /*display: inline;*/
+  /*color: white;*/
+  /*text-align: center;*/
+  /*position: relative;*/
+
+/*}*/
+
+
+/*.topnav {*/
+  /*display:none;*/
+  /*background-color: #333;*/
+  /*opacity: 0.8;*/
+  /*border-radius: 6px;*/
+  /*top: 0;*/
+  /*width: fit-content;*/
+  /*z-index: 1000;*/
+/*}*/
+/*.topnav a {*/
+  /*width:56px;*/
+  /*height:30%;*/
+  /*margin-top: 134px;*/
+  /*display: inline;*/
+  /*color: white;*/
+  /*text-align: center;*/
+  /*padding: 14px 16px;*/
+
+/*}*/
+
+.button{
+  background: url("../image/menu.png");
+  float: right;
+  background-size: cover;
+  width: 45px;
+  height:45px;
+  border:none;
+  margin-top: 16px;
+  margin-right: 14px;
+  cursor: pointer;
+}
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/*14/09*/
+.dropdown-content{
+  top: 5em;
+  display: none;
+  left: 0;
+}
+.button-parent{
+  padding: 0;
+}
+
+
+.navbar-toggle .icon-bar{
+  background: blue;
+}
+.back-button {
+    text-align: right;
+    padding: 0;
+    margin: 8px 0;
+}
+.hamburger-block{
+  padding: 0;
+  border-bottom: 1px solid rgba(204, 204, 204, 0.34);
+}
+.hamburger{
+  padding: 0;
+}
+.navbar-toggle {
+  margin-right: 0;
+  padding-left: 0;
+}
+.page-heading h1{
+  text-align: center;
+  font-size: 30px;
+}
+.navbar-toggle .icon-bar {
+    width: 24px;
+    height: 3px;
+}
+.wrapper{
+  clear: both;
+  margin-bottom: 15px;
+}
+.navbar-inverse {
+    background-color: rgba(245, 245, 245, 0.4);
+    border-color: rgba(8, 8, 8, 0.25);
+}
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover{
+  background-color: rgba(8, 8, 8, 0.73);
+}
+.navbar-inverse .navbar-nav>li>a {
+    color: rgba(8, 8, 8, 0.85);
+}
+/*15/07*/
+#Accepted{
+  display: block;
+}
+/*#Accepted button,#On_Trip button {
+    width: 100%;
+    background: none;
+    padding: 8px 2px;
+}*/
+#Accepted,#On_Trip{
+  border: none;
+  padding: 0;
+  clear: both;
+}
+.tab{
+  padding: 0;
+  margin-bottom: 10px;
+}
+.accord {
+    border: 1px solid #ccc;
+    padding-top: 10px;
+    margin: 7px 0;
+}
+.accord .row {
+  text-align: center;
+  margin: 0;
+}
+.more-details {
+  border: none;
+}
+.more-details a{
+  color: #ffffff;
+}
+.btn-submit{
+  margin: 10px 0;
+}
+#identity_doc {
+  border: 1px solid black;
+  padding: 8px 0;
+}
+#identity_doc .form-group {
+  padding: 10px;
+}
+#Load {
+  display: block;
+  padding: 0;
+  border: none;
+}
+#Load h3{
+  text-align: center;
+}
+.expand-truck {
+  display: none;
+}
+.truck-num{
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    border-bottom: 1px solid #fff;
+    text-align: center;
+}
+/*18/09*/
+#accept_btn {
+    margin-bottom: 5px;
+}
+.truck-avail{
+  margin: 10px 0;
+}
+.price{
+  margin: 0 15px;
+}
+.center-align{
+  text-align: center;
+}
+.city-trip{
+  width: 100%;
+}
+.required-field{
+  color: red;
+}
+.phnum-block{
+  margin-bottom: 0;
+}
+#All,#Scheduled,#Live,#Agents{
+  display: block;
+}
+.tabcontents{
+  display: none;
+}
+.send-invites{
+  padding: 0;
+}
+.ton-pic img{
+  width: 15px;
+}
+.trip-details label{
+  display: block;
+}
+.status{
+  background: crimson;
+}
+.status label {
+  color: #ffffff;
+}
+.navbar-nav > li{
+  float: none;
+}
+/*19/08*/
+.checkbox-label{
+  margin-left: 5px;
+}
+.checkbox-label {
+    margin-left: 5px;
+    vertical-align: middle;
+}
+/*20/07*/
+#Agents li {
+  list-style-type: none;
+}
+#Agents ul {
+  padding: 0;
+}
+.route {
+  border: 1px solid;
+  padding: 10px
+}
+#preferred_route {
+  padding: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 767px) {
+  .more-details {
+    width: 100%;
+    padding: 8px 2px;
+  }
+  input[type=file] {
+    width: 100%;
+  }
+  .no-padding {
+    padding: 0;
+  }
+  .paid-by,.myorders .col-xs-6,.transport .col-xs-6,.truck-location .col-xs-6 {
+    padding: 0;
+  }
+  .navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse .navbar-nav > li > a:hover{
+    background: rgba(8, 8, 8, 0.73);
+  }
+}
+@media only screen and (min-width: 768px) {
+  .navbar-collapse.collapse.navbar-inverse{
+      display: none !important;
+  }
+  .back-button {
+    display: none;
+  }
+  .navbar-header {
+      float: none !important;
+  }
+  .more-details {
+    padding: 6px;
+    margin-bottom: 10px;
+  }
+  .truck-location .col-xs-6 {
+    text-align: left;
+  }
+
+  .navbar-nav > .active > a, .navbar-nav > .active > a:focus, .navbar-nav > .active > a:hover {
+      background-color: rgba(8, 8, 8, 0.73);
+  }
+  .navbar-nav > .active > a, .navbar-nav > .active > a:focus, .navbar-nav > .active > a:hover, .navbar-nav > a:active {
+      color: #fff;
+      background-color: rgba(8, 8, 8, 0.73);
+  }
+  header.container .navbar-nav > li {
+    display: inline-block;
+  }
+
+
+
+}
+
+
+
+
+.unordered_list{
+  list-style-type:none
+}
+
+.display{
+  border: 1px solid gray;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  padding: 5px;
+}
+
+/*#owner_trip_request_received {*/
+  /*border: 1px solid silver;*/
+  /*padding: 4px;*/
+/*}*/
+
+.accord-wrap {
+  border: 1px dotted silver;
+  margin-top: 20px;
+}
+
+.freight-title {
+  background: #f8f6f6cc;
+  padding: 8px;
+  border: 1px solid silver;
+}
+
+
+#myDiv{
+  display: none;
+}

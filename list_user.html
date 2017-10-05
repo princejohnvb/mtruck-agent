@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mTruckFE.css">
+</head>
+
+<body>
+
+    <header class="navbar-header container"> 
+        <div class="col-xs-12 hamburger-block">
+            <div class="col-xs-2 hamburger">
+                <button aria-controls="bs-navbar" aria-expanded="false" class="navbar-toggle collapsed pull-left" data-target="#bs-navbar" data-toggle="collapse" type="button"> 
+                    <span class="sr-only">Toggle navigation</span> 
+                    <span class="icon-bar"></span> 
+                    <span class="icon-bar"></span> 
+                    <span class="icon-bar"></span> 
+                </button> 
+            </div>
+            <div class="col-xs-10 back-button">
+                <a href="#" class="btn btn-primary btn-sm">Back</a>
+            </div>
+        </div>
+        <div id="includedMobileMenu"></div>
+        <div class="col-xs-12 page-heading">
+            <h1>Invite List</h1>
+        </div>  
+    </header>
+
+    <section class="container wrapper">
+        <div class="col-sm-9">
+            <div class="tab">
+                <button id="show_all" class="tablinks active col-xs-4" onclick="list(event, 'All')" >All</button>
+                <button class="tablinks col-xs-4" onclick="list(event, 'Sent')">Sent</button>
+                <button id="show_recieved" class="tablinks col-xs-4" onclick="list(event, 'Recieved')">Recieved</button>
+
+            </div>
+
+
+            <div id="All" class="tabcontent ">
+
+                <ul id="agents-ul">
+
+                </ul>
+
+            </div>
+
+            <div id="Sent" class="tabcontent">
+                <ul id="send-ul">
+
+                </ul>
+            </div>
+
+                <div id="Recieved" class="tabcontent">
+                    <ul id="recieved-ul">
+
+                    </ul>
+                </div>
+            <a href="invite_user.html" class="btn btn-primary btn-submit">Send Invites</a>
+        </div>
+
+        <div id="includedContent" class="col-sm-3"></div>
+    </section>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/list_user.js"></script>
+    <script src="js/global.js"></script>
+    
+</body>
+</html>

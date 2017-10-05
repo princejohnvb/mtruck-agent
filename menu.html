@@ -1,0 +1,68 @@
+<nav class="navbar-collapse collapse" id="bs-navbar" aria-expanded="false">
+    <ul class="nav navbar-nav">
+
+        <li>
+            <a href="searchload.html">Search Load</a>
+        </li>
+
+        <li>
+            <a href="owner_request_received_from_agent.html">Truck Request Received</a>
+        </li>
+        <li>
+            <a href="request_truck.html">Direct Request For Truck</a>
+        </li>
+        <!--<li>-->
+            <!--<a href="#">My Load Request</a>-->
+        <!--</li>-->
+        <li>
+            <a href="accept_the_bid.html">My Load Order</a>
+        </li>
+        <li>
+            <a href="my_trip_order.html">My Trip Order</a>
+        </li>
+        <li>
+            <a href="list_user.html">List of Invites</a>
+        </li>
+        <li>
+            <a href="list_drivers.html">List of Drivers</a>
+        </li>
+        <li>
+            <a href="circles.html">My Circle</a>
+        </li>
+        <li>
+            <a href="mytruck.html">My Trucks</a>
+        </li>
+
+        <!--<li>-->
+            <!--<a href="#">Truck Expenses</a>-->
+        <!--</li>-->
+        <!--<li>-->
+            <!--<a href="#">Reminder</a>-->
+        <!--</li>-->
+        <!--<li>-->
+            <!--<a href="#">Payment</a>-->
+        <!--</li>-->
+        <li>
+            <a href="user_profile.html">Profile</a>
+        </li>
+        <li>
+            <a href="logout.html" class="logout" >Log Out</a>
+        </li>
+    </ul>
+</nav>
+
+
+<script>
+
+    $(function () {
+        var url = window.location.pathname; 
+        var activePage = url.substring(url.lastIndexOf('/') + 1); 
+        $('.navbar-nav > li > a').each(function () { 
+            var linkPage = this.href.substring(this.href.lastIndexOf('/') + 1); 
+            if (activePage == linkPage) { 
+                $(this).parent().addClass('active'); 
+            }
+        });
+    })
+
+</script>

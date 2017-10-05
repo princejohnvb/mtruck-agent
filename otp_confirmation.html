@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mTruckFE.css">
+</head>
+<body>
+    <header class="navbar-header container"> 
+        <h1 class="center-align">One Time Password</h1>
+    </header>
+    <section class="container wrapper">
+        <h6 class="required-field">* Required Fields</h6>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="otp">OTP<font color="red">*</font>:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="otp"  name="pwd">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-submit btn-success" id="verify_otp" onclick="otp()">Confirm</button>
+                    <input type="button" class="btn btn-submit btn-danger" id="resend_otp" value="Resend OTP">
+                </div>
+            </div>
+    </section>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/otp.js"></script>
+
+</body>
+</html>

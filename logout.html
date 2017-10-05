@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+
+<script>
+  function delete_cookie(name) {
+    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  }
+
+  delete_cookie('accesstoken');
+  delete_cookie('uid');
+  delete_cookie('otp_id');
+  delete_cookie('phone_number');
+  delete_cookie('organ_id');
+  window.location.href = 'index.html';
+</script>
+</body>
+
+</html>

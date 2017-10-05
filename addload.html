@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mTruckFE.css">
+</head>
+
+<body>
+
+    <header class="navbar-header container"> 
+        <div class="col-xs-12 hamburger-block">
+            <div class="col-xs-2 hamburger">
+                <button aria-controls="bs-navbar" aria-expanded="false" class="navbar-toggle collapsed pull-left" data-target="#bs-navbar" data-toggle="collapse" type="button"> 
+                    <span class="sr-only">Toggle navigation</span> 
+                    <span class="icon-bar"></span> 
+                    <span class="icon-bar"></span> 
+                    <span class="icon-bar"></span> 
+                </button> 
+            </div>
+            <div class="col-xs-10 back-button">
+                <a href="#" class="btn btn-primary btn-sm">Back</a>
+            </div>
+        </div>
+      
+        <div id="includedMobileMenu"></div>
+            
+        </nav>
+        <div class="col-xs-12 page-heading">
+            <h1>Add Load</h1>
+        </div>  
+    </header>
+
+    <section class="container wrapper">
+        <div class="col-sm-9">
+
+            <div class="tab">
+                <button id="show_all" class="tablinks active col-xs-12" onclick="list(event, 'Load')" >#Trip Order:123</button>
+            </div>
+
+            <div id="Load" class="tabcontent active">
+
+
+                <div class="accord">
+
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-6"><label>Reg ID: 30</label></div>
+                        <div class="col-sm-6 col-xs-6"><label>50 ton</label></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-6"><label>Owner 2</label></div>
+                        <div class="col-sm-6 col-xs-6"><label>Cement</label></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-6"><label>Load ID: 56</label></div>
+                        <div class="col-sm-6 col-xs-6"><label>Customer Name</label></div>
+                    </div>
+                    <h3>Trucks</h3>
+
+                    <div class="row truck-details">
+                        <button class="truck-num">KA-05-JS-8571</button>
+                        <div class="expand-truck">
+                            <p>hello</p>
+                        </div>
+
+                        <button class="truck-num">KA-05-JS-8571</button>
+                        <div class="expand-truck">
+                            <div class="row">
+                                <div class="col-sm-6 col-xs-6"><label>Load Order #123</label></div>
+                                <div class="col-sm-6 col-xs-6"><label>50 ton</label></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 col-xs-6"><label>Acc</label></div>
+                            </div>
+                        </div>
+                    </div>
+
+                        <div class="status">
+                            <label>Waiting for Driver To Start Trip</label>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+       
+        <div id="includedContent" class="col-sm-3"></div>
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/searchload.js"></script>
+    <script src="js/global.js"></script>
+</body>
+</html>

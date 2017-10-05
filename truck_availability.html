@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mTruckFE.css">
+</head>
+
+<body onload="getLoadData();QuoteReceivedFromOwner()">
+
+<header class="navbar-header container">
+    <div class="col-xs-12 hamburger-block">
+        <div class="col-xs-2 hamburger">
+            <button aria-controls="bs-navbar" aria-expanded="false" class="navbar-toggle collapsed pull-left"
+                    data-target="#bs-navbar" data-toggle="collapse" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="col-xs-10 back-button">
+            <a href="#" class="btn btn-primary btn-sm">Back</a>
+        </div>
+    </div>
+    <!--  <nav class="navbar-collapse collapse navbar-inverse hidden-sm hidden-md hidden-lg" id="bs-navbar" aria-expanded="false">
+         <ul class="nav navbar-nav">
+             <li>
+                 <a href="request_truck.html">Truck Request Received</a>
+             </li>
+             <li>
+                 <a href="#">My Load Request</a>
+             </li>
+             <li class="active">
+                 <a href="#">My Load Order</a>
+             </li>
+             <li>
+                 <a href="my_trip_order.html">My Trip Order</a>
+             </li>
+             <li>
+                 <a href="list_user.html">List of Invites</a>
+             </li>
+             <li>
+                 <a href="list_drivers.html">List of Drivers</a>
+             </li>
+             <li>
+                 <a href="circles.html">My Circle</a>
+             </li>
+             <li>
+                 <a href="#">Service Work Order</a>
+             </li>
+             <li>
+                 <a href="#">Truck Expenses</a>
+             </li>
+             <li>
+                 <a href="#">Reminder</a>
+             </li>
+             <li>
+                 <a href="#">Payment</a>
+             </li>
+             <li>
+                 <a href="user_profile.html">Profile</a>
+             </li>
+             <li>
+                 <a href="#" >Log Out</a>
+             </li>
+         </ul>
+     </nav> -->
+    <div id="includedMobileMenu"></div>
+    <div class="col-xs-12 page-heading">
+        <h1>Bids From Transportors and Truck Owners</h1>
+    </div>
+</header>
+
+<section class="container wrapper">
+
+    <div class="col-sm-9" id="load_request_data">
+        <!--<div class="tab">-->
+        <!--<button class="tablinks active city-trip" onclick="list(event, 'Load')" >Bangalore - Hyderabad Trip</button>-->
+        <!--</div>-->
+
+        <!--<div id="Load" class="tabcontent active">-->
+
+
+        <!--<div class="accord">-->
+
+        <!--<div class="row">-->
+        <!--<div class="col-sm-6 col-xs-6"><label>Cement<br>(40T)</label></div>-->
+        <!--<div class="col-sm-6 col-xs-6"><label>40 ton</label></div>-->
+        <!--</div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-sm-6 col-xs-6"><label>Customer Price:<br>500 per TON</label></div>-->
+        <!--<div class="col-sm-6 col-xs-6"><label>Lowest Bid<br>600/Ton</label></div>-->
+        <!--</div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-sm-6 col-xs-6"><label>Full Body</label></div>-->
+        <!--<div class="col-sm-6 col-xs-6"><label>24 hours</label></div>-->
+        <!--</div>-->
+        <!--<div class="row">-->
+        <!--<div>-->
+        <!--<button id="accept_btn" class="btn btn-default">Accept</button>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="accord">-->
+
+        <!--<div>-->
+        <!--<h4 class="center-align">Your Price (/ton)</h4>-->
+        <!--</div>-->
+
+        <!--<div class="row">-->
+        <!--&lt;!&ndash;<span><button  class="btn btn-default">-</button></span>&ndash;&gt;-->
+        <!--<input type="number" min="1">-->
+        <!--&lt;!&ndash;<span><label class="price">750</label></span>&ndash;&gt;-->
+        <!--&lt;!&ndash;<span><button  class="btn btn-default">+</button></span>&ndash;&gt;-->
+        <!--</div>-->
+
+        <!--<div class="center-align">-->
+        <!--<a href="searchload.html"><button class="btn btn-default btn-submit"> Submit Your Bid </button></a>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--<div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-sm-6 col-xs-6"><label>Self</label></div>-->
+        <!--<div class="col-sm-6 col-xs-6"><label>5 Trucks</label></div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-sm-6 col-xs-6"><label>Owner 1</label></div>-->
+        <!--<div class="col-sm-6 col-xs-6"><label>700/ton (7 Truck)</label></div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-sm-6 col-xs-6"><label>Owner 2</label></div>-->
+        <!--<div class="col-sm-6 col-xs-6"><label>Waiting</label></div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--<br>-->
+        <!--</div>-->
+    </div>
+    <div class="col-sm-9" id="quote_received"></div>
+    <div id="includedContent" class="col-sm-3"></div>
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/searchload.js"></script>
+<script src="js/global.js"></script>
+
+<script>
+    var url = window.location.search;
+    var loadRequestId = getParameterByName('data');
+    var trip_request_id = getParameterByName('tripRequestId');
+
+    //Getting Query parameter from url
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    <!-- Api call to get load data   -->
+    function getLoadData() {
+        var accessToken = getCookie('accesstoken');
+        var data = null;
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+
+                var p = JSON.parse(this.responseText);
+                append_data(p);
+
+
+            }
+        });
+
+        xhr.open("GET", "http://mtruck.in/api/loadrequest/get/" + loadRequestId);
+        xhr.setRequestHeader("accept", "application/json");
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+        xhr.send(data);
+
+    }
+
+    function getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+
+
+    <!-- Displaying Load Data -->
+    function append_data(data) {
+        console.log(data.state);
+        var html = '<div class="tab">';
+        html += '<button id="show_all" class="tablinks active col-xs-12">' + data.loading_point.city_name + ' - ' + data.unloading_point.city_name + ' Trip</button>';
+        html += '</div>';
+        html += '<div class="accord">';
+
+        html += '<div class="row">';
+        html += '<div class="col-sm-6 col-xs-6"><label>' + data.freight.material_types.title + '</label></div>';
+        html += '<div class="col-sm-6 col-xs-6"><label>' + data.freight.weight + ' ' + data.freight.weight_unit + '</label></div>';
+        html += '</div>';
+        html += '<div class="row">';
+        html += '<div class="col-sm-6 col-xs-6"><label>Customer Price:<br>' + data.expected_rate + ' per TON</label></div>';
+        html += '<div class="col-sm-6 col-xs-6"><label>Lowest Bid<br>600/Ton</label></div>';
+        html += '</div>';
+        html += '<div class="row">';
+        html += '<div class="col-sm-6 col-xs-6"><label>' + data.truck_types.title + '</label></div>';
+        html += '<div class="col-sm-6 col-xs-6"><label>' + data.scheduled_date_time + '</label></div>';
+        html += '</div>';
+        html += '<div class="row">';
+        html += '<div>';
+        if (data.state == 'open') {
+            html += '<button id="accept_btn" class="btn btn-default" onclick=\'acceptBidByTransporter("' + data.expected_rate + '")\'>Accept</button>';
+        }
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+        html += '<div class="accord">';
+        html += '<div>';
+        html += '<h4 class="center-align">Your Price (/ton)</h4>';
+        html += '</div>';
+        html += '<div class="row">';
+        html += '<input type="number" min="1" id="agent_bid_price">';
+        html += '</div>';
+        html += '<div class="center-align">';
+        if (data.state == 'open') {
+            html += '<button class="btn btn-default btn-submit" onclick="submitYourBid()"> Submit Your Bid </button>';
+        }else{
+            html += '<h4>Load is not available any more</h4>';
+        }
+        html += '</div>';
+        html += '</div>';
+
+
+        document.getElementById('load_request_data').innerHTML += html;
+    }
+
+    <!-- Appending Bid Received from owner-->
+    function appendBidReceivedFromOwner(data) {
+        var quotePrice = data.price_per_unit;
+        var noOfTrucks = data.no_of_trucks;
+        var ownerName = data.user.name;
+        var ownerId = data.user.id;
+//            var html = ' <h4>Quotes Received</h4>';
+        var html = '<div>';
+        html += '<div class="row">';
+        html += '<div class="col-sm-4 col-xs-4"><label>' + ownerName + ' </label></div>';
+        html += '<div class="col-sm-4 col-xs-4"><label>' + quotePrice + ' /ton (' + noOfTrucks + ' Trucks)</label></div>';
+        html += '<div class="col-sm-4 col-xs-4" onclick="acceptBidByOwner(this)" data-bid-id="' + data.id + '"><a>Accept</a></div>';
+//            html += '<input type="checkbox" name="trucks-available" value='+ownerId+'> '+ownerName +' '+quotePrice+' /ton ('+ noOfTrucks +' Trucks) <br>';
+        html += '</div>';
+        html += '</div>';
+
+        document.getElementById('quote_received').innerHTML += html;
+
+    }
+    <!-- Transportor or agent accepting bid from owner -->
+    function acceptBidByOwner(bid) {
+        var bid_id = bid.getAttribute("data-bid-id");
+        var accessToken = getCookie('accesstoken');
+        var uid = getCookie('uid');
+
+        var data = new FormData();
+
+        data.append("status", 1);
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                var acceptOwnerBidResponse = JSON.parse(this.responseText);
+                alert('You have accepted the bid');
+            }
+
+        });
+
+        xhr.open("POST", "http://mtruck.in/api/triprequest/" + trip_request_id + "/bid/" + bid_id + "/respond/transporter");
+        xhr.setRequestHeader("accept", "application/json");
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+        xhr.send(data);
+    }
+
+    <!-- Get Quotes Received From owners -->
+    function QuoteReceivedFromOwner() {
+        var accessToken = getCookie('accesstoken');
+        var data = null;
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+
+                var bidReceivedFromOwner = JSON.parse(this.responseText);
+                var i;
+                for (i in bidReceivedFromOwner.recent_bids_by_user) {
+                    appendBidReceivedFromOwner(bidReceivedFromOwner.recent_bids_by_user[i]);
+                }
+            }
+        });
+
+        xhr.open("GET", "http://mtruck.in/api/triprequest/" + trip_request_id + "/bids/received");
+        xhr.setRequestHeader("accept", "application/json");
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+        xhr.send(data);
+    }
+
+    <!-- Transpotor or Agent Accepting Customer Price only  -->
+    function acceptBidByTransporter(expectedPrice) {
+
+        var accessToken = getCookie('accesstoken');
+        var uid = getCookie('uid');
+
+        var data = new FormData();
+
+        data.append("load_request_id", loadRequestId);
+        data.append("user_id", uid);
+        data.append("no_of_trucks", '1');
+        data.append("price_per_unit", expectedPrice);
+
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+
+                var availableTruckInNetworks = JSON.parse(this.responseText);
+                var i;
+                for (i in availableTruckInNetworks) {
+                    append_truck(availableTruckInNetworks[i]);
+                }
+            }
+            window.location.href = 'accept_the_bid.html';
+
+        });
+
+        xhr.open("POST", "http://mtruck.in/api/loadrequest/" + loadRequestId + "/bid/accept/transporter");
+        xhr.setRequestHeader("accept", "application/json");
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+        xhr.send(data);
+
+
+    }
+
+    <!--Agent Submitting his bid or asking for better price-->
+    function submitYourBid() {
+        var price_per_unit = document.getElementById("agent_bid_price").value;
+        var accessToken = getCookie('accesstoken');
+
+        var data = new FormData();
+
+        data.append("no_of_trucks", '1');
+        <!--  Currently Hard coded -->
+        data.append("price_per_unit", price_per_unit);
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+
+                var bidResponse = JSON.parse(this.responseText);
+                if (bidResponse[0] == true) {
+                    alert('Your Bid Placed Successfully');
+                }
+                window.location.href = 'searchload.html';
+            }
+
+        });
+
+        xhr.open("POST", "http://mtruck.in/api/loadrequest/" + loadRequestId + "/bid/new/transporter");
+        xhr.setRequestHeader("accept", "application/json");
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+        xhr.send(data);
+    }
+
+
+</script>
+
+</body>
+</html>

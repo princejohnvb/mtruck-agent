@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mTruckFE.css">
+</head>
+
+<body onload="pr_routes(); myLoads()">
+
+    <header class="navbar-header container"> 
+        <div class="col-xs-12 hamburger-block">
+            <div class="col-xs-2 hamburger">
+                <button aria-controls="bs-navbar" aria-expanded="false" class="navbar-toggle collapsed pull-left" data-target="#bs-navbar" data-toggle="collapse" type="button"> 
+                    <span class="sr-only">Toggle navigation</span> 
+                    <span class="icon-bar"></span> 
+                    <span class="icon-bar"></span> 
+                    <span class="icon-bar"></span> 
+                </button> 
+            </div>
+            <div class="col-xs-10 back-button">
+                <a href="#" class="btn btn-primary btn-sm">Back</a>
+            </div>
+        </div>
+
+        <div id="includedMobileMenu"></div>
+        <div class="col-xs-12 page-heading">
+            <h1>Search Loads</h1>
+        </div>  
+    </header>
+
+    <section class="container wrapper">
+
+        <div class="col-sm-9">
+            <div class="tab">
+                <button id="show_all" class="tablinks active col-xs-6" onclick="list(event, 'Load')" >Load</button>
+                <button class="tablinks col-xs-6" onclick="list(event, 'Bid')">Bid</button>
+            </div>
+
+
+            <div id="Load" class="tabcontent active">
+
+            </div>
+
+            <div id="Bid" class="tabcontent">
+
+            </div>
+        </div>
+        <div id="includedContent" class="col-sm-3"></div>
+
+    </section>
+
+
+    <script>
+      //*********************************************ACCORDION**********************
+
+      var acc = document.getElementsByClassName("accordion");
+      var i;
+
+      for (i = 0; i < acc.length; i++) {
+        acc[i].onclick = function(){
+          this.classList.toggle("active");
+          var panel = this.nextElementSibling;
+          if (panel.style.display === "block") {
+            panel.style.display = "none";
+          } else {
+            panel.style.display = "block";
+          }
+        }
+      }
+      //***************************************LIST FUNCTION*************************
+      function list(evt, typeName) {                                       //accordion function --list_user.html
+
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(typeName).style.display = "block";
+        evt.currentTarget.className += " active";
+        document.getElementById("defaultOpen");
+      }
+    </script>
+
+    <div id="test"></div>
+
+    <script>
+        //loadrequest/loads/myloads/transporter
+        function pr_routes() {
+            var accessToken = getCookie('accesstoken');
+            var data = null;
+            var xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
+
+            xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === 4) {
+
+                    var p = JSON.parse(this.responseText);
+                    var arrayLength = p.length;
+                    for (var i = 0; i < arrayLength; i++) {
+                        append_data(p[i], 'Load')
+                    }
+
+                }
+            });
+
+            xhr.open("GET", "http://mtruck.in/api/loadrequest/loads/preferred-routes");
+            xhr.setRequestHeader("accept", "application/json");
+            xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+            xhr.send(data);
+
+        }
+        function myLoads() {
+            var accessToken = getCookie('accesstoken');
+            var data = null;
+            var xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
+
+            xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === 4) {
+
+                    var p = JSON.parse(this.responseText);
+//                    console.log(p);
+//                    console.log(p[0].freight.load_request_id);
+
+                  var arrayLength = p.length;
+                    for (var i = 0; i < arrayLength; i++) {
+                        append_data(p[i], 'Bid')
+                    }
+
+                }
+            });
+
+            xhr.open("GET", "http://mtruck.in/api/loadrequest/loads/myloads/transporter");
+            xhr.setRequestHeader("accept", "application/json");
+            xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+            xhr.send(data);
+
+        }
+
+        function getCookie(name) {
+            var value = "; " + document.cookie;
+            var parts = value.split("; " + name + "=");
+            if (parts.length === 2) return parts.pop().split(";").shift();
+        }
+
+        <!--geting load request id and passing it to next page-->
+        function bidpage(d){
+            loadRequestId = d.getAttribute("data-load-id");
+            window.location.href = 'bidpage.html?data='+loadRequestId;
+        }
+
+
+        function append_data(data, id) {
+            var html = "<div class='row'>";
+
+            html += "<div class='sm-12' style='border: 1px solid silver; padding: 8px'>";
+
+            html += "<div> <b>Location </b> : "+data.loading_point.city_name+" ("+ data.loading_point.state_name +") - "+ data.un_loading_point.city_name +" ("+ data.un_loading_point.state_name +")</div>";
+
+            html += "<div> <b>Truck Type</b> : "+data.truck_types.title+"</div>";
+            html += "<div> <b>Material Type</b> : "+data.freight.material_types.title +" ("+ data.freight.weight + " Tons) </div>";
+
+            html += "<div> <b>Expected Rate :</b> "+ data.expected_rate +"</div>";
+            html += "<div> <b>Date Scheduled :</b> "+ data.scheduled_date_time +"</div>";
+            html += "<button id='bid_for' onclick= 'bidpage(this)' data-load-id = "+ data.id +">Bid For</button>";
+
+            html += "</div>";
+            html += "</div>";
+            html += "<br />";
+
+            document.getElementById(id).innerHTML += html;
+        }
+
+    </script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/searchload.js"></script>
+    <script src="js/global.js"></script>
+
+</body>
+</html>

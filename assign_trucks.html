@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mTruckFE.css">
+</head>
+
+<body onload="assignTrucks()">
+
+<header class="navbar-header container">
+    <div class="col-xs-12 hamburger-block">
+        <div class="col-xs-2 hamburger">
+            <button aria-controls="bs-navbar" aria-expanded="false" class="navbar-toggle collapsed pull-left"
+                    data-target="#bs-navbar" data-toggle="collapse" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="col-xs-10 back-button">
+            <a href="#" class="btn btn-primary btn-sm">Back</a>
+        </div>
+    </div>
+
+    <div id="includedMobileMenu"></div>
+    <div class="col-xs-12 page-heading">
+        <h1>Assign Trucks</h1>
+    </div>
+</header>
+
+<section class="container wrapper">
+
+    <div class="col-sm-9">
+        <div id="assign_trucks"></div>
+        <button id="show_all" class="tablinks active col-xs-6" onclick="assignAndBlockTrucks()">Assign & Block</button>
+
+    </div>
+    <div id="includedContent" class="col-sm-3"></div>
+
+</section>
+<script>
+
+    var url = window.location.search;
+    var trip_req_id = getParameterByName('tripId');
+
+    //Getting Query parameter from url
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    //Get Truck owned by Owners or Transportor which are available for trip
+    function assignTrucks() {
+        var accessToken = getCookie('accesstoken');
+        var data = null;
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+
+                var p = JSON.parse(this.responseText);
+                var i;
+                for (i in p.response_data.owned) {
+                    append_data(p.response_data.owned[i]);
+                }
+
+            }
+        });
+
+        xhr.open("GET", "http://mtruck.in/api/trucks/owned");
+        xhr.setRequestHeader("accept", "application/json");
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+        xhr.send(data);
+
+    }
+
+    function getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+    /**
+     * Owner or Transportor Assign and Block Trucks
+     */
+    function assignAndBlockTrucks() {
+
+//        var checkboxes = document.getElementsByName('trucks');
+//        var checkboxesChecked = [];
+//        // loop over them all
+//        for (var i=0; i<checkboxes.length; i++) {
+//            // And stick the checked ones onto an array...
+//            if (checkboxes[i].checked) {
+//                checkboxesChecked.push(checkboxes[i].value);
+//            }
+//        }
+        var assignTrucks = [];
+        $("input:checkbox[name=trucks]:checked").each(function(){
+            assignTrucks.push($(this).val());
+        });
+        var accessToken = getCookie('accesstoken');
+
+        var data = new FormData();
+        for(var trucks in assignTrucks) {
+            data.append("trucks[]", assignTrucks[trucks]);
+        }
+//        console.log(data);
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+
+                var bidResponse = JSON.parse(this.responseText);
+
+                alert('Trucks Has been assigned to the Trip Request');
+                window.location.href = "my_trip_order.html"
+            }
+
+        });
+
+        xhr.open("POST", "http://mtruck.in/api/triprequest/" + trip_req_id + "/add/trips");
+        xhr.setRequestHeader("accept", "application/json");
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+        xhr.send(data);
+    }
+
+
+    function append_data(data) {
+
+        var html = "<div class='row'>";
+
+        html += "<div class='sm-12' style='border: 1px solid silver; padding: 8px'>";
+
+        html += "<input type='checkbox' name='trucks' value=" + data.id + "> " + data.reg_no + "<br>";
+
+        html += "</div>";
+        html += "</div>";
+        html += "<br />";
+
+        document.getElementById('assign_trucks').innerHTML += html;
+    }
+
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/searchload.js"></script>
+<script src="js/global.js"></script>
+
+</body>
+</html>

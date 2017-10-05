@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mTruckFE.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+<body>
+<style>
+    input#destination,input#city {
+        text-transform: uppercase;
+    }
+</style>
+<script>
+
+    $(document).ready(function() {
+        var valuesid =[];
+        var idvalue = [];
+        $("#city").keyup(function(){
+
+            var citvalue = document.getElementById("city").value;
+            var xhr = new XMLHttpRequest();
+            xhr.addEventListener("readystatechange", function () {
+                idvalue = [];
+
+                if (this.readyState === 4) {
+                    var json = JSON.parse(this.responseText);
+                    var auto_suggestionq = [];
+
+                    for (var i = 0; i < json.length; i++) {
+                        auto_suggestionq.push(Object.values(json)[i].value);
+                        idvalue.push(Object.values(json)[i].id,Object.values(json)[i].value);
+                    }
+                    $("#city").autocomplete({
+                        source: idvalue
+
+                    });
+
+                }
+            });
+
+            xhr.open("GET", " http://mtruck.in/api/city/autocomplete/api?q="+citvalue, true);
+            xhr.setRequestHeader("accept", "application/json");
+            xhr.setRequestHeader('Authorization', 'Bearer ' + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjhkNjExMDI4NDgwZGJjMzgzZmYzZGQ4Y2RkMmRmOWYwZDIxYTJlNTRmYjdjOThkOWYxNWQzZGE0NWYyZGVlZWE1NzE3MzNkZmNjNDQ2MDlhIn0.eyJhdWQiOiIyIiwianRpIjoiOGQ2MTEwMjg0ODBkYmMzODNmZjNkZDhjZGQyZGY5ZjBkMjFhMmU1NGZiN2M5OGQ5ZjE1ZDNkYTQ1ZjJkZWVlYTU3MTczM2RmY2M0NDYwOWEiLCJpYXQiOjE1MDUzNzM0NjMsIm5iZiI6MTUwNTM3MzQ2MywiZXhwIjoxNTM2OTA5NDYzLCJzdWIiOiIxMDciLCJzY29wZXMiOltdfQ.i_4ISCo8RcC8ulhJ2q4PmknDKvqX-DbhuEu5OimSS2a5bu2go39VosZEsnV38-qRBPdankUluOs-kR59Yjk0naSe0a2gTgUyPk4GLVJaBoNne7WN4l57OscDrTnv_9ieXLu4wMTaZfZr3CZnV_y7mJZ_Y2MDUv6xNWH7XVfFzALtK1tzj_mkakehuv68AzDLBDgF0tG16XXFB9om8gHMaMoBqXQJJp6ALG3ea2Jbp4Croa0u4F48Vi5jqcIPckEfMQRxzuFnuQEj5slVD_id21mWU4GND0-tuahV32YDdVTbgu49fO3GFSNwofQLpGjeLBgNsTlXzaGhputo1LcrEUTJLgZOvT4wYKLhnYgBYOdJDVdHecjBqkwe4jmw66q5PtBR7rcWK6oOwVgfqNhkualP_cDfFpZtiV_r-JQDJXrM5dqf5lZqNwRbtf1wfVonLAB35x9durGrw-zejsnIogOOK5JAGEmqEc88_gJTU21Rztbtx2e0M-8eSF7AWTKv9Ao01cKDSPkvA06sD05n8ifNTp08XfCi71XH1TQB4zNTZvDwf1O8K5BR9WW7i1TGT3ASfRaAd8Wv-XfwOjoPh6338e9enEFh0Pn_8mP_TLyZVBOb5J2goOcNTNZwXelBXyV_ijGoZIuS3fOiXhhPdQ1WHub8fujQEIUe4nwYjyo');
+            xhr.send();
+            $( "#city" ).focusout(function() {
+                var new_value = $(this).val();
+                console.log(idvalue);
+                var a = idvalue.indexOf(new_value);
+                var city_key = a - 1;
+                document.getElementById('city_value').value = idvalue[city_key];
+            });
+        });
+
+        $("#source").keyup(function(){
+
+            var source = document.getElementById("source").value;
+            var xhr = new XMLHttpRequest();
+            xhr.addEventListener("readystatechange", function () {
+
+                if (this.readyState === 4) {
+                    var json = JSON.parse(this.responseText);
+                    var auto_suggestion_source = [];
+                    for (var i = 0; i < json.length; i++) {
+                        auto_suggestion_source.push(Object.values(json)[i].value);
+                    }
+                    $("#source").autocomplete({
+                        source: auto_suggestion_source
+                    });
+
+                }
+            });
+            xhr.open("GET", " http://mtruck.in/api/city/autocomplete/api?q="+source, true);
+            xhr.setRequestHeader("accept", "application/json");
+            xhr.setRequestHeader('Authorization', 'Bearer ' + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjhkNjExMDI4NDgwZGJjMzgzZmYzZGQ4Y2RkMmRmOWYwZDIxYTJlNTRmYjdjOThkOWYxNWQzZGE0NWYyZGVlZWE1NzE3MzNkZmNjNDQ2MDlhIn0.eyJhdWQiOiIyIiwianRpIjoiOGQ2MTEwMjg0ODBkYmMzODNmZjNkZDhjZGQyZGY5ZjBkMjFhMmU1NGZiN2M5OGQ5ZjE1ZDNkYTQ1ZjJkZWVlYTU3MTczM2RmY2M0NDYwOWEiLCJpYXQiOjE1MDUzNzM0NjMsIm5iZiI6MTUwNTM3MzQ2MywiZXhwIjoxNTM2OTA5NDYzLCJzdWIiOiIxMDciLCJzY29wZXMiOltdfQ.i_4ISCo8RcC8ulhJ2q4PmknDKvqX-DbhuEu5OimSS2a5bu2go39VosZEsnV38-qRBPdankUluOs-kR59Yjk0naSe0a2gTgUyPk4GLVJaBoNne7WN4l57OscDrTnv_9ieXLu4wMTaZfZr3CZnV_y7mJZ_Y2MDUv6xNWH7XVfFzALtK1tzj_mkakehuv68AzDLBDgF0tG16XXFB9om8gHMaMoBqXQJJp6ALG3ea2Jbp4Croa0u4F48Vi5jqcIPckEfMQRxzuFnuQEj5slVD_id21mWU4GND0-tuahV32YDdVTbgu49fO3GFSNwofQLpGjeLBgNsTlXzaGhputo1LcrEUTJLgZOvT4wYKLhnYgBYOdJDVdHecjBqkwe4jmw66q5PtBR7rcWK6oOwVgfqNhkualP_cDfFpZtiV_r-JQDJXrM5dqf5lZqNwRbtf1wfVonLAB35x9durGrw-zejsnIogOOK5JAGEmqEc88_gJTU21Rztbtx2e0M-8eSF7AWTKv9Ao01cKDSPkvA06sD05n8ifNTp08XfCi71XH1TQB4zNTZvDwf1O8K5BR9WW7i1TGT3ASfRaAd8Wv-XfwOjoPh6338e9enEFh0Pn_8mP_TLyZVBOb5J2goOcNTNZwXelBXyV_ijGoZIuS3fOiXhhPdQ1WHub8fujQEIUe4nwYjyo');
+            xhr.send();
+
+        });
+        $("#destination").keyup(function(){
+            var source = document.getElementById("source").value;
+            var destination = document.getElementById("destination").value;
+            var res = destination.toUpperCase();
+            var xhr = new XMLHttpRequest();
+            xhr.addEventListener("readystatechange", function () {
+
+                if (this.readyState === 4) {
+                    var json = JSON.parse(this.responseText);
+                    var auto_suggestion_destination = [];
+                    for (var i = 0; i < json.length; i++) {
+                        auto_suggestion_destination.push(Object.values(json)[i].value);
+                    }
+
+                    $("#destination").autocomplete({
+                        source: auto_suggestion_destination
+                    });
+
+                }
+            });
+            xhr.open("GET", " http://mtruck.in/api/city/autocomplete/api?q="+res, true);
+            xhr.setRequestHeader("accept", "application/json");
+            xhr.setRequestHeader('Authorization', 'Bearer ' + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjhkNjExMDI4NDgwZGJjMzgzZmYzZGQ4Y2RkMmRmOWYwZDIxYTJlNTRmYjdjOThkOWYxNWQzZGE0NWYyZGVlZWE1NzE3MzNkZmNjNDQ2MDlhIn0.eyJhdWQiOiIyIiwianRpIjoiOGQ2MTEwMjg0ODBkYmMzODNmZjNkZDhjZGQyZGY5ZjBkMjFhMmU1NGZiN2M5OGQ5ZjE1ZDNkYTQ1ZjJkZWVlYTU3MTczM2RmY2M0NDYwOWEiLCJpYXQiOjE1MDUzNzM0NjMsIm5iZiI6MTUwNTM3MzQ2MywiZXhwIjoxNTM2OTA5NDYzLCJzdWIiOiIxMDciLCJzY29wZXMiOltdfQ.i_4ISCo8RcC8ulhJ2q4PmknDKvqX-DbhuEu5OimSS2a5bu2go39VosZEsnV38-qRBPdankUluOs-kR59Yjk0naSe0a2gTgUyPk4GLVJaBoNne7WN4l57OscDrTnv_9ieXLu4wMTaZfZr3CZnV_y7mJZ_Y2MDUv6xNWH7XVfFzALtK1tzj_mkakehuv68AzDLBDgF0tG16XXFB9om8gHMaMoBqXQJJp6ALG3ea2Jbp4Croa0u4F48Vi5jqcIPckEfMQRxzuFnuQEj5slVD_id21mWU4GND0-tuahV32YDdVTbgu49fO3GFSNwofQLpGjeLBgNsTlXzaGhputo1LcrEUTJLgZOvT4wYKLhnYgBYOdJDVdHecjBqkwe4jmw66q5PtBR7rcWK6oOwVgfqNhkualP_cDfFpZtiV_r-JQDJXrM5dqf5lZqNwRbtf1wfVonLAB35x9durGrw-zejsnIogOOK5JAGEmqEc88_gJTU21Rztbtx2e0M-8eSF7AWTKv9Ao01cKDSPkvA06sD05n8ifNTp08XfCi71XH1TQB4zNTZvDwf1O8K5BR9WW7i1TGT3ASfRaAd8Wv-XfwOjoPh6338e9enEFh0Pn_8mP_TLyZVBOb5J2goOcNTNZwXelBXyV_ijGoZIuS3fOiXhhPdQ1WHub8fujQEIUe4nwYjyo');
+            xhr.send();
+
+        });
+
+    });
+
+</script>
+<header class="navbar-header container">
+    <div class="col-xs-12 hamburger-block">
+        <div class="col-xs-2 hamburger">
+            <button aria-controls="bs-navbar" aria-expanded="false" class="navbar-toggle collapsed pull-left" data-target="#bs-navbar" data-toggle="collapse" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="col-xs-10 back-button">
+            <a href="#" class="btn btn-primary btn-sm">Back</a>
+        </div>
+    </div>
+    <nav class="navbar-collapse collapse navbar-inverse hidden-sm hidden-md hidden-lg" id="bs-navbar" aria-expanded="false">
+        <ul class="nav navbar-nav">
+            <li>
+                <a href="request_truck.html">Truck Request Received</a>
+            </li>
+            <li>
+                <a href="#">My Load Request</a>
+            </li>
+            <li>
+                <a href="#">My Load Order</a>
+            </li>
+            <li>
+                <a href="my_trip_order.html">My Trip Order</a>
+            </li>
+            <li>
+                <a href="list_user.html">List of Invites</a>
+            </li>
+            <li>
+                <a href="list_drivers.html">List of Drivers</a>
+            </li>
+            <li>
+                <a href="circles.html">My Circle</a>
+            </li>
+            <li>
+                <a href="#">Service Work Order</a>
+            </li>
+            <li>
+                <a href="#">Truck Expenses</a>
+            </li>
+            <li>
+                <a href="#">Reminder</a>
+            </li>
+            <li>
+                <a href="#">Payment</a>
+            </li>
+            <li class="active">
+                <a href="user_profile.html">Profile</a>
+            </li>
+            <li>
+                <a href="#" class="logout" >Log Out</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="col-xs-12 page-heading">
+        <h1>User Profile</h1>
+    </div>
+</header>
+<section class="container wrapper">
+    <h6 class="required-field">* Required Fields</h6>
+    <div class="col-sm-9">
+        <div class="custom_size">
+            <form name="user_profile_form">
+                <div class="form-group">
+                    <label><strong class="required-field">*</strong>Your Name:</label> <input type="text" class="form-control" id="fname"><br>
+                </div>
+                <div class="form-group">
+                    <label><span class="required-field">*</span>Phone:</label> <input type="text" name="Phone" class="form-control" id="usr_phone"><br>
+                </div>
+                <div class="form-group">
+                    <label><span class="required-field">*</span>E-Mail:</label> <input type="email" name="Email" class="form-control" id="usr_email"><br>
+                </div>
+                <div class="form-group">
+                    <label><span class="required-field">*</span>Type</label>
+                    <div>
+                        <select class="btn btn-default form-control" id="typ">
+                            <option value="agent">Agent</option>
+                            <option value="driver">Driver</option>
+                            <option value="customer">Customer</option>
+                            <option value="owner">Owner</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="tags">City:</label> <input type="text" class="form-control" id="city" ><br>
+                    <div id="tags"></div>
+                </div>
+                <div class="form-group">
+                    <label>GST NO:</label> <input type="text"  class="form-control" id="gst_no"><br><br>
+                </div>
+                <div class="form-group route">
+                    <label>Preferred Routes:</label>
+                    <div id="preferred_route">
+                        <input type="text" id="source" class="btn-submit" name="source" placeholder="Source" autocomplete="on"> 
+                        <input type="text" id="destination" class="btn-submit" name="destination" placeholder="Destination" autocomplete="on">
+                        <a class="btn btn-default btn-submit" id="add_field"></a>
+                        <br>
+                    </div>
+                </div>
+                <div id="identity_doc">
+                    <div class="form-group">
+                        <label>Identity Doc:</label>
+                        <select name="id_docs" class="btn btn-default" id="doc_types">
+                            <option value="1">Aadhar Card</option>
+                            <option value="2">Driving Licence</option>
+                            <option value="3">Pan Card</option>
+                            <option value="4">RC Card</option>
+                        </select>
+                        <div class="center-align visible-xs"><a class="btn btn-primary btn-submit" id="add_docs">Add More</a></div>
+                        <a class="btn btn-primary hidden-xs" id="add_docs">Add More</a>
+                    </div>
+                    <div class="form-group">
+                        <input type="file" id="file" class="btn btn-default"><br>
+                        <button class="btn btn-success"  id="upload_doc">Upload</button>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="form-group">
+                    <label>Aadhar No:</label> <input type="text" class="form-control" id="aadhar_no">
+                </div>
+                <input type="hidden" id="city_value">
+
+
+                <input type="button" value="Submit" class="btn btn-success" id="confirm_btn">
+            </form>
+        </div>
+    </div>
+    <div id="includedContent" class="col-sm-3"></div>
+</section>
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+<!--<script src="js/oa_profilepage.js"></script>-->
+<!--&lt;!&ndash;<script src="https://code.jquery.com/jquery-1.12.4.js"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>&ndash;&gt;-->
+
+<script src="js/global.js"></script>
+
+
+
+
+</body>
+</html>

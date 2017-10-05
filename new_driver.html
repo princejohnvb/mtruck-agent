@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mTruckFE.css">
+</head>
+<body>
+    <header class="navbar-header container"> 
+        <div class="col-xs-12 hamburger-block">
+            <div class="col-xs-2 hamburger">
+                <button aria-controls="bs-navbar" aria-expanded="false" class="navbar-toggle collapsed pull-left" data-target="#bs-navbar" data-toggle="collapse" type="button"> 
+                    <span class="sr-only">Toggle navigation</span> 
+                    <span class="icon-bar"></span> 
+                    <span class="icon-bar"></span> 
+                    <span class="icon-bar"></span> 
+                </button> 
+            </div>
+            <div class="col-xs-10 back-button">
+                <a href="#" class="btn btn-primary btn-sm">Back</a>
+            </div>
+        </div>
+
+        <div id="includedMobileMenu"></div>
+        <div class="col-xs-12 page-heading">
+            <h1>New Driver</h1>
+        </div>  
+    </header>
+
+    <section class="container wrapper">
+        <h6 class="required-field">* Required Fields</h6>
+        <div class="col-sm-9">
+            <form class="form-horizontal" action="/action_page.php">
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="dnme">Driver Name<span class="required-field">*</span>:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="dnme" placeholder="Enter the Name" name="dname">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-10" id="myDiv">
+                        <input type="text" class="form-control" id="dmail" placeholder="Enter the Email-Id" name="dmail">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="dphon">Driver Phone<span class="required-field">*</span>:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="dphon" placeholder="Enter the Phone Number" name="dphone">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="button" class="btn btn-default btn-success" id="new_driver" value="Confirm">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="includedContent" class="col-sm-3"></div>
+    </section>
+    <footer>
+        
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/new_driver.js"></script>
+    <script src="js/global.js"></script>
+    
+</body>
+</html>

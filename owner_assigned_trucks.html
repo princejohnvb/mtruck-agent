@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mTruckFE.css">
+</head>
+
+<body onload="triggerListDrivers();">
+
+<header class="navbar-header container">
+    <div class="col-xs-12 hamburger-block">
+        <div class="col-xs-2 hamburger">
+            <button aria-controls="bs-navbar" aria-expanded="false" class="navbar-toggle collapsed pull-left" data-target="#bs-navbar" data-toggle="collapse" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="col-xs-10 back-button">
+            <a href="#" class="btn btn-primary btn-sm">Back</a>
+        </div>
+    </div>
+
+    <div id="includedMobileMenu"></div>
+    <div class="col-xs-12 page-heading">
+        <h1>Assign Operator</h1>
+    </div>
+</header>
+
+<section class="container wrapper">
+
+    <div class="col-sm-9">
+
+        <div class="form-group">
+            Select Truck :
+            <select id="truck" class="btn btn-default form-control"></select>
+        </div>
+
+        <div class="form-group">
+            Driver :
+            <select id="driver" class="btn btn-default form-control"></select>
+        </div>
+
+        <button class="btn btn-default" id="save_add">Save & Add More</button>
+        <button class="btn btn-default" id="save_continue">Save & Continue</button>
+
+        <div class="row">
+            <h4>List of Trucks assigned</h4>
+            <div id="trips"></div>
+        </div>
+
+        <a id="continue_trip_order"><u><h5>Continue to TripOrder</h5></u></a>
+
+
+    </div>
+    <div id="includedContent" class="col-sm-3"></div>
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/global.js"></script>
+
+<script>
+
+    $("#continue_trip_order").click(function(){
+        window.location.href = 'freight.html?tripRequestId='+tripRequestId;
+    });
+
+    $("#save_add").click(function(){
+
+        if(!tripRequestId){
+            alert('Invalid tripRequest');
+            return;
+        }
+
+        var driver = document.getElementById('driver').value;
+        var truck = document.getElementById('truck').value;
+        var accessToken = getCookie('accesstoken');
+
+
+        var data = new FormData();
+        data.append("truck", document.getElementById('truck').value);
+        data.append("drivers[]", document.getElementById('driver').value);
+
+//console.log(data); return;
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                console.log(this.responseText);
+                var json = JSON.parse(this.responseText);
+                if(json.error){
+                    alert(json.error);
+                }else {
+                    location.reload();
+                }
+            }
+        });
+
+        xhr.open("POST", "http://mtruck.in/api/triprequest/"+tripRequestId+"/add/trip");
+        xhr.setRequestHeader("accept", "application/json");
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken );
+        xhr.send(data);
+
+    });
+
+    $("#save_continue").click(function(){
+
+        if(!tripRequestId){
+            alert('Invalid tripRequest');
+            return;
+        }
+
+        var driver = document.getElementById('driver').value;
+        var truck = document.getElementById('truck').value;
+        var accessToken = getCookie('accesstoken');
+
+
+        var data = new FormData();
+        data.append("truck", document.getElementById('truck').value);
+        data.append("drivers[]", document.getElementById('driver').value);
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                console.log(this.responseText);
+                var json = JSON.parse(this.responseText);
+                if(json.error){
+                    alert(json.error);
+                }else {
+                    window.location.href = 'freight.html?tripRequestId='+tripRequestId;
+                }
+            }
+        });
+
+        xhr.open("POST", "http://mtruck.in/api/triprequest/"+tripRequestId+"/add/trip");
+        xhr.setRequestHeader("accept", "application/json");
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken );
+        xhr.send(data);
+
+
+    });
+
+    function triggerListDrivers() {
+        trucksGet();
+        driversGet();
+        tripReq(tripRequestId);
+    }
+
+//    var loadRequestId = getParameterByName('loadRequestId');
+    var tripRequestId = getParameterByName('tripRequestId');
+
+    //Getting Query parameter from url
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    function tripReq(id) {
+        var accessToken = getCookie('accesstoken');
+        var organ_id = getCookie('organ_id');
+
+        var data = null;
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+
+                var p = JSON.parse(this.responseText);
+                console.log(p);
+//                alert(p.trips.length);
+
+                if(p.trips.length > 0){
+                    var arrayLength = p.trips.length;
+
+                    var html = '<ul>';
+
+                    for (var i = 0; i < arrayLength; i++) {
+                        html += '<li>'+ p.trips[i].truck.reg_no +'</li>';
+                    }
+
+                    html += '</ul>';
+                    document.getElementById('trips').innerHTML = html;
+                }
+            }
+        });
+
+        xhr.open("GET", "http://mtruck.in/api/triprequest/get/" + tripRequestId);
+        xhr.setRequestHeader("accept", "application/json");
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+        xhr.send(data);
+    }
+
+    function driversGet() {
+        var accessToken = getCookie('accesstoken');
+        var organ_id = getCookie('organ_id');
+
+        var data = null;
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+
+
+                var p = JSON.parse(this.responseText);
+                var drivers = p.response_data;
+
+                for (var key in drivers) {
+                    if (drivers.hasOwnProperty(key)) {
+                        var option = document.createElement("option");
+                        option.text = drivers[key].name;
+                        option.value = drivers[key].id;
+                        var select = document.getElementById("driver");
+                        select.appendChild(option);
+                    }
+                }
+
+            }
+        });
+
+        xhr.open("GET", "http://mtruck.in/api/users/drivers/list/" + organ_id);
+        xhr.setRequestHeader("accept", "application/json");
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+        xhr.send(data);
+    }
+
+    function trucksGet() {
+        var accessToken = getCookie('accesstoken');
+        var data = null;
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+
+                var p = JSON.parse(this.responseText);
+                var trucks = p.response_data;
+
+                for (var key in trucks) {
+                    if (trucks.hasOwnProperty(key)) {
+                        var option = document.createElement("option");
+                        option.text = trucks[key].reg_no;
+                        option.value = trucks[key].id;
+                        var select = document.getElementById("truck");
+                        select.appendChild(option);
+                    }
+                }
+            }
+        });
+
+        xhr.open("GET", 'http://mtruck.in/api/trucks/all/formatted');
+        xhr.setRequestHeader("accept", "application/json");
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+        xhr.send(data);
+    }
+
+    function getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+
+    function append_data(data, id) {
+
+        console.log(data);
+
+        var html = '<div class="accord">';
+
+        html += '<div class="row">';
+        html += '<div class="col-sm-6 col-xs-6"><span>#'+data.id+'</span></div>';
+        html += '<div class="col-sm-6 col-xs-6"><span>'+ data.freight.weight +' Ton</span></div>';
+        html += '</div>';
+
+        html += '<div class="row">';
+        html += '<div class="col-sm-6 col-xs-6"><span>'+data.users.name+'</span></div>';
+        html += '<div class="col-sm-6 col-xs-6"><span>'+ data.users.phone +'</span></div>';
+        html += '</div>';
+
+        html += '<div class="row">';
+        html += '<div class="col-sm-6 col-xs-6"><span>'+data.trips.length+' Trips</span></div>';
+        html += '<div class="col-sm-6 col-xs-6"><span>'+ data.freight.material_types.title +'</span></div>';
+        html += '</div>';
+
+        html += '<div class="row">';
+        html += '<div class="col-sm-6 col-xs-6"><span>'+data.loading_point.city_name +' Trips</span></div>';
+        html += '<div class="col-sm-6 col-xs-6"><span>'+ data.unloading_point.city_name +'</span></div>';
+        html += '</div>';
+
+        html += '<div class="row">';
+        html += '<div class="col-sm-6 col-xs-6"><span>Status: </span></div>';
+        html += '<div class="col-sm-6 col-xs-6"><span>Assign Drivers</span></div>';
+        html += '</div>';
+
+        html += '<div class="row">';
+        html += '<button class="btn-primary more-details"><a href="owner_assigned_trucks.html">More Details</a></button>';
+        html += '</div>';
+
+        html += '</div>';
+
+        document.getElementById(id).innerHTML += html;
+    }
+</script>
+</body>
+</html>

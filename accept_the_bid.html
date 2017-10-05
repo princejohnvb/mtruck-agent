@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mTruckFE.css">
+</head>
+
+<body onload="triggerAllMyLoadOrders()">
+    <header class="navbar-header container"> 
+        <div class="col-xs-12 hamburger-block">
+            <div class="col-xs-2 hamburger">
+                <button aria-controls="bs-navbar" aria-expanded="false" class="navbar-toggle collapsed pull-left" data-target="#bs-navbar" data-toggle="collapse" type="button"> 
+                    <span class="sr-only">Toggle navigation</span> 
+                    <span class="icon-bar"></span> 
+                    <span class="icon-bar"></span> 
+                    <span class="icon-bar"></span> 
+                </button> 
+            </div>
+            <div class="col-xs-10 back-button">
+                <a href="#" class="btn btn-primary btn-sm">Back</a>
+            </div>
+        </div>
+
+        <div id="includedMobileMenu"></div>
+        
+        <div class="col-xs-12 page-heading">
+            <h1>My Load Orders</h1>
+        </div>  
+    </header>
+
+    <section class="container wrapper">
+        <div class="col-sm-9">
+            <div class="tab col-xs-12">
+                <button id="show_all" class="tablinks active col-xs-6" onclick="list(event, 'Accepted')" >Accepted</button>
+                <button class="tablinks col-xs-6" onclick="list(event, 'On_Trip')">On Trip</button>
+            </div>
+
+            <div id="Accepted" class="tabcontent active"></div>
+            <div id="On_Trip" class="tabcontent"></div>
+        </div>
+
+        <div id="includedContent" class="col-sm-3"></div>
+    </section>
+
+
+    <script>
+      //*********************************************ACCORDION**********************
+      var acc = document.getElementsByClassName("accordion");
+      var i;
+
+      for (i = 0; i < acc.length; i++) {
+        acc[i].onclick = function(){
+          this.classList.toggle("active");
+          var panel = this.nextElementSibling;
+          if (panel.style.display === "block") {
+            panel.style.display = "none";
+          } else {
+            panel.style.display = "block";
+          }
+        }
+      }
+      //***************************************LIST FUNCTION*************************
+      function list(evt, typeName) {                                       
+      //accordion function --list_user.html
+
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(typeName).style.display = "block";
+        evt.currentTarget.className += " active";
+        document.getElementById("defaultOpen");
+      }
+    </script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/searchload.js"></script>
+    <script src="js/global.js"></script>
+
+    <script>
+
+        function triggerAllMyLoadOrders() {
+            acceptedContent('Accepted','http://mtruck.in/api/loadrequest/loads/myloads/transporter/accepted?with[]=TripReq');
+            acceptedContent('On_Trip','http://mtruck.in/api/loadrequest/loads/myloads/transporter/accepted?state[]=on_trip&with[]=TripReq');
+        }
+
+        function acceptedContent(id, url) {
+            var accessToken = getCookie('accesstoken');
+            var data = null;
+            var xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
+
+            xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === 4) {
+
+                    var p = JSON.parse(this.responseText);
+                    var arrayLength = p.length;
+                    for (var i = 0; i < arrayLength; i++) {
+                        append_data(p[i], id)
+                    }
+                }
+            });
+
+            xhr.open("GET", url);
+            xhr.setRequestHeader("accept", "application/json");
+            xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+            xhr.send(data);
+
+        }
+
+        function getCookie(name) {
+            var value = "; " + document.cookie;
+            var parts = value.split("; " + name + "=");
+            if (parts.length === 2) return parts.pop().split(";").shift();
+        }
+
+        function append_data(data, id) {
+
+            console.log(data);
+
+            var html = '<div class="accord">';
+
+            html += '<div class="row">';
+            html += '<div class="col-sm-6 col-xs-6"><span>'+data.loading_point.city_name +'</span></div>';
+            html += '<div class="col-sm-6 col-xs-6"><span>'+ data.un_loading_point.city_name +'</span></div>';
+            html += '</div>';
+
+            html += '<div class="row">';
+            html += '<div class="col-sm-6 col-xs-6"><span>'+data.truck_types.title+'</span></div>';
+            html += '<div class="col-sm-6 col-xs-6"><span>'+ data.freight.material_types.title +'('+ data.freight.weight +' Ton )</span></div>';
+            html += '</div>';
+
+            html += '<div class="row">';
+            html += '<div class="col-sm-6 col-xs-6"><span>'+data.expected_rate +' / Ton</span></div>';
+            html += '<div class="col-sm-6 col-xs-6"><span>'+ data.scheduled_date_time +'</span></div>';
+            html += '</div>';
+
+            html += '<div class="row">';
+            html += '<div class="col-sm-6 col-xs-6"><span>Consignee & Consignor Details: </span></div>';
+            html += '<div class="col-sm-6 col-xs-6"><span>TripOrder state</span></div>';
+            html += '</div>';
+
+            if(data.trip_req){
+                html += '<div class="row">';
+                html += '<a class="btn-primary more-details btn" href="loadReqTrips.html?loadRequestId='+data.id+'">Details(Add Load)</a>';
+                html += '</div>';
+            }else{
+                html += '<div class="row">';
+                html += '<a class="btn-primary more-details btn" href="loadReq_owner_assigned_trucks.html?loadRequestId='+data.id+'">Assign Trucks</a>';
+                html += '</div>';
+            }
+
+            html += '</div>';
+
+            document.getElementById(id).innerHTML += html;
+        }
+    </script>
+
+</body>
+</html>

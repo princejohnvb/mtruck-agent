@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mTruckFE.css">
+</head>
+<body>
+
+    <header class="navbar-header container"> 
+        <div class="col-xs-12 hamburger-block">
+            <div class="col-xs-2 hamburger">
+                <button aria-controls="bs-navbar" aria-expanded="false" class="navbar-toggle collapsed pull-left" data-target="#bs-navbar" data-toggle="collapse" type="button"> 
+                    <span class="sr-only">Toggle navigation</span> 
+                    <span class="icon-bar"></span> 
+                    <span class="icon-bar"></span> 
+                    <span class="icon-bar"></span> 
+                </button> 
+            </div>
+            <div class="col-xs-10 back-button">
+                <a href="#" class="btn btn-primary btn-sm">Back</a>
+            </div>
+        </div>
+        <div id="includedMobileMenu"></div>
+        <div class="col-xs-12 page-heading">
+            <h1>New Truck</h1>
+        </div>  
+    </header>
+
+    <section class="container wrapper">
+
+        <div class="col-sm-9">
+            <h6 class="required-field">* Required Fields</h6>
+            <form class="form-horizontal" action="/action_page.php">
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" ><span class="required-field">*</span>Truck Reg. No:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="redg_no">
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" ><span class="required-field">*</span>Truck Type:</label>
+                    <select class="btn btn-default" id="truck_type" >
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" ><span class="required-field">*</span>Capacity:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="capacity">
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2"><span class="required-field">*</span>Capacity Units</label>
+                    <select name="id_docs" class="btn btn-default" id="capacity_unit">
+                        <option value="ton">Ton</option>
+                        <option value="kg">Kilograms</option>
+                    </select>
+                    &nbsp;&nbsp;&nbsp;
+                </div>
+
+                <div class="col-sm-10">
+                   <input type="radio" name="trucks"  value="own" checked required id="radio_btn_1"> <label> I Own This Truck</label><br>
+                   <input type="radio" name="trucks" value="manage" required id="radio_btn_2"> <label> I Manage This Truck</label>
+                </div>
+
+
+
+            </form>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-success" id="new_truck">Save</button>
+                </div>
+            </div>
+
+        </div>
+        <div id="includedContent" class="col-sm-3"></div>
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/new_truck.js"></script>
+    <script src="js/global.js"></script>
+
+</body>
+</html>

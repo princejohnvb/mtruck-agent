@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mTruckFE.css">
+</head>
+
+<body onload="getTrucksInNetwork();getLoadData()">
+
+<header class="navbar-header container">
+    <div class="col-xs-12 hamburger-block">
+        <div class="col-xs-2 hamburger">
+            <button aria-controls="bs-navbar" aria-expanded="false" class="navbar-toggle collapsed pull-left"
+                    data-target="#bs-navbar" data-toggle="collapse" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="col-xs-10 back-button">
+            <a href="#" class="btn btn-primary btn-sm">Back</a>
+        </div>
+    </div>
+    <!--         <nav class="navbar-collapse collapse navbar-inverse hidden-sm hidden-md hidden-lg" id="bs-navbar" aria-expanded="false">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="request_truck.html">Truck Request Received</a>
+                    </li>
+                    <li>
+                        <a href="#">My Load Request</a>
+                    </li>
+                    <li class="active">
+                        <a href="#">My Load Order</a>
+                    </li>
+                    <li>
+                        <a href="my_trip_order.html">My Trip Order</a>
+                    </li>
+                    <li>
+                        <a href="list_user.html">List of Invites</a>
+                    </li>
+                    <li>
+                        <a href="list_drivers.html">List of Drivers</a>
+                    </li>
+                    <li>
+                        <a href="circles.html">My Circle</a>
+                    </li>
+                    <li>
+                        <a href="#">Service Work Order</a>
+                    </li>
+                    <li>
+                        <a href="#">Truck Expenses</a>
+                    </li>
+                    <li>
+                        <a href="#">Reminder</a>
+                    </li>
+                    <li>
+                        <a href="#">Payment</a>
+                    </li>
+                    <li>
+                        <a href="user_profile.html">Profile</a>
+                    </li>
+                    <li>
+                        <a href="#" >Log Out</a>
+                    </li>
+                </ul>
+            </nav> -->
+    <div id="includedMobileMenu"></div>
+    <div class="col-xs-12 page-heading">
+        <h1>Bid</h1>
+    </div>
+</header>
+
+<section class="container wrapper">
+
+    <div class="col-sm-9" id="load_request_data">
+        <!--<div class="tab">-->
+        <!--<button id="show_all" class="tablinks active col-xs-12">Bangalore - Hyderabad Trip</button>-->
+        <!--</div>-->
+
+
+        <!--<div class="accord">-->
+
+        <!--<div class="row">-->
+        <!--<div class="col-sm-6 col-xs-6"><label>Cement<br>(40T)</label></div>-->
+        <!--<div class="col-sm-6 col-xs-6"><label>40 ton</label></div>-->
+        <!--</div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-sm-6 col-xs-6"><label>Customer Price:<br>500 per TON</label></div>-->
+        <!--<div class="col-sm-6 col-xs-6"><label>Lowest Bid<br>600/Ton</label></div>-->
+        <!--</div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-sm-6 col-xs-6"><label>Full Body</label></div>-->
+        <!--<div class="col-sm-6 col-xs-6"><label>24 hours</label></div>-->
+        <!--</div>-->
+        <!--<div class="row">-->
+        <!--<div>-->
+        <!--<a href="accept_the_bid.html">-->
+        <!--<button id="accept_btn" class="btn btn-default">Accept</button>-->
+        <!--</a>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<h4>Trucks Available in my network</h4>-->
+        <!--<div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-sm-6 col-xs-6"><label>Self</label></div>-->
+        <!--<div class="col-sm-6 col-xs-6"><label>10 Trucks</label></div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-sm-6 col-xs-6"><label>Owner 1</label></div>-->
+        <!--<div class="col-sm-6 col-xs-6"><label>10 Trucks</label></div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-sm-6 col-xs-6"><label>Owner 2</label></div>-->
+        <!--<div class="col-sm-6 col-xs-6"><label>10 Trucks</label></div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="truck-avail">-->
+        <!--<a href="truck_availability.html">-->
+        <!--<button class="btn btn-default"> Check Truck Availability in My Circle</button>-->
+        <!--</a>-->
+        <!--</div>-->
+    </div>
+    <div class="col-sm-9" id="trucks_avability">
+        <h4>Trucks Available in my network</h4>
+        <div class="truck-avail">
+            <button class="btn btn-default" onclick="tripRequestToOwner()"> Check Truck Availability in My Circle
+            </button>
+        </div>
+    </div>
+
+    <div id="includedContent" class="col-sm-3"></div>
+
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/searchload.js"></script>
+<script src="js/global.js"></script>
+<script>
+    var url = window.location.search;
+    loadRequestId = url.replace("?data=", '');
+
+    <!-- Api call to get load data   -->
+    function getLoadData() {
+        var accessToken = getCookie('accesstoken');
+        var data = null;
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+
+                var p = JSON.parse(this.responseText);
+                append_data(p);
+
+
+            }
+        });
+
+        xhr.open("GET", "http://mtruck.in/api/loadrequest/get/" + loadRequestId);
+        xhr.setRequestHeader("accept", "application/json");
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+        xhr.send(data);
+
+    }
+
+    function getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+
+    <!-- Api call to get trucks in my network   -->
+    function getTrucksInNetwork() {
+        var accessToken = getCookie('accesstoken');
+        var data = null;
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+
+                var availableTruckInNetworks = JSON.parse(this.responseText);
+                var i;
+                for (i in availableTruckInNetworks) {
+                    append_truck(availableTruckInNetworks[i]);
+                }
+            }
+        });
+
+        xhr.open("GET", "http://mtruck.in/api/trucks/circle/list/count-only");
+        xhr.setRequestHeader("accept", "application/json");
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+        xhr.send(data);
+    }
+
+    <!-- Displaying Load Data -->
+    function append_data(data) {
+        var html = '<div class="tab">';
+        html += '<button id="show_all" class="tablinks active col-xs-12">' + data.loading_point.city_name + ' - ' + data.unloading_point.city_name + ' Trip</button>';
+        html += '</div>';
+        html += '<div class="accord">';
+
+        html += '<div class="row">';
+        html += '<div class="col-sm-6 col-xs-6"><label>' + data.freight.material_types.title + '</label></div>';
+        html += '<div class="col-sm-6 col-xs-6"><label>' + data.freight.weight + ' ' + data.freight.weight_unit + '</label></div>';
+        html += '</div>';
+        html += '<div class="row">';
+        html += '<div class="col-sm-6 col-xs-6"><label>Customer Price:<br>' + data.expected_rate + ' per TON</label></div>';
+        html += '<div class="col-sm-6 col-xs-6"><label>Lowest Bid<br>600/Ton</label></div>';
+        html += '</div>';
+        html += '<div class="row">';
+        html += '<div class="col-sm-6 col-xs-6"><label>' + data.truck_types.title + '</label></div>';
+        html += '<div class="col-sm-6 col-xs-6"><label>' + data.scheduled_date_time + '</label></div>';
+        html += '</div>';
+        html += '<div class="row">';
+        html += '<div>';
+        <!--html += '<a href="accept_the_bid.html">';-->
+        if (data.state == 'open') {
+            html += '<button id="accept_btn" class="btn btn-default" onclick=\'acceptBidByTransporter("' + data.expected_rate + '")\'>Accept</button>';
+        } else {
+            html += '<h4>Load is not available any more</h4>';
+        }
+//        html += '</a>';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+
+        document.getElementById('load_request_data').innerHTML += html;
+    }
+
+    <!-- Appending Truck Avability in My Network -->
+    function append_truck(truck) {
+//        var html = ' <h4>Trucks Available in my network</h4>';
+        var html = '<div>';
+        html += '<div class="row">';
+        html += '<input type="checkbox" name="trucks-available" value=' + truck.user.id + '> ' + truck.user.name + ' ' + truck.trucks_owned + ' Trucks <br>';
+        html += '</div>';
+        html += '</div>';
+
+
+//        html += '<div class="truck-avail">';
+//        html += '<button class="btn btn-default" onclick="tripRequestToOwner()"> Check Truck Availability in My Circle</button>';
+//        html += '</div>';
+        document.getElementById('trucks_avability').innerHTML += html;
+    }
+
+    <!-- Post Trip request to owners -->
+    function tripRequestToOwner() {
+        var owners = [];
+        $("input:checkbox[name=trucks-available]:checked").each(function () {
+            owners.push($(this).val());
+        });
+
+        var accessToken = getCookie('accesstoken');
+
+        var data = new FormData();
+
+        for (var recipient in owners) {
+            data.append("recipients[]", owners[recipient]);
+        }
+
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+
+                var availableTruckInNetworks = JSON.parse(this.responseText);
+                var trip_request_id = availableTruckInNetworks[0].id;
+                <!--here we are getting two objets that is why had to do this -->
+
+                window.location.href = 'truck_availability.html?data=' + loadRequestId + '&tripRequestId=' + trip_request_id;
+
+            }
+
+        });
+
+        xhr.open("POST", "http://mtruck.in/api/triprequest/add/loadrequest/" + loadRequestId);
+        xhr.setRequestHeader("accept", "application/json");
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+        xhr.send(data);
+
+
+    }
+
+    function acceptBidByTransporter(expectedPrice) {
+        <!--console.log(expectedPrice);-->
+        var accessToken = getCookie('accesstoken');
+        var uid = getCookie('uid');
+
+        var data = new FormData();
+
+        data.append("load_request_id", loadRequestId);
+        data.append("user_id", uid);
+        data.append("no_of_trucks", '1');
+        data.append("price_per_unit", expectedPrice);
+
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+
+                var availableTruckInNetworks = JSON.parse(this.responseText);
+                var i;
+                for (i in availableTruckInNetworks) {
+                    append_truck(availableTruckInNetworks[i]);
+                }
+            }
+            window.location.href = 'accept_the_bid.html';
+
+        });
+
+        xhr.open("POST", "http://mtruck.in/api/loadrequest/" + loadRequestId + "/bid/accept/transporter");
+        xhr.setRequestHeader("accept", "application/json");
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+        xhr.send(data);
+
+
+    }
+
+
+</script>
+
+</body>
+</html>
