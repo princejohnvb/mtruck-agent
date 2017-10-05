@@ -27,28 +27,27 @@
     <!--&lt;!&ndash;<splash platform="android" qualifier="port-hdpi" src="splash/android/splash.png" />&ndash;&gt;-->
     <!--&lt;!&ndash;<splash src="splash.png"/>&ndash;&gt;-->
 
-    <!--<preference name = "android-minSdkVersion" value="22" />-->
-    <!--<preference name = "android-maxSdkVersion" value="26" />-->
-    <!--<preference name = "android-targetSdkVersion" value="22" />-->
+    <preference name = "android-minSdkVersion" value="22" />
+    <preference name = "android-maxSdkVersion" value="26" />
+    <preference name = "android-targetSdkVersion" value="22" />
 
-    <!--<preference name="deployment-target" value="7.0" />-->
+    <preference name="deployment-target" value="7.0" />
 
-    <!--<preference name="orientation" value="portrait" />-->
-    <!--<preference name="fullscreen" value="true" />-->
-    <!--<preference name="KeepRunning" value="false" />-->
-    <!--<preference name="SplashScreen" value="screen"/>-->
-    <!--<preference name="android-build-tool" value="gradle" />-->
+    <preference name="orientation" value="portrait" />
+    <preference name="fullscreen" value="true" />
+    <preference name="KeepRunning" value="false" />
+    <preference name="android-build-tool" value="gradle" />
 
-    <!--<plugin name="cordova-plugin-x-socialsharing" source="npm" />-->
-    <!--<plugin name="cordova-plugin-webintent2" source="npm"/>-->
-    <!--<plugin name="cordova-plugin-admobpro" source="npm"/>-->
-    <!--<plugin name="cordova-plugin-network-information" source="npm"/>-->
+    <plugin name="cordova-plugin-x-socialsharing" source="npm" />
+    <plugin name="cordova-plugin-webintent2" source="npm"/>
+    <plugin name="cordova-plugin-admobpro" source="npm"/>
+    <plugin name="cordova-plugin-network-information" source="npm"/>
     <!--<plugin name="cordova-plugin-x-toast" source="npm"/>-->
     <!--<plugin name="checkinternet" source="npm"/>-->
-    <!--<plugin name="cordova-plugin-inappbrowser-wkwebview" source="npm"/>-->
-    <!--<plugin name="cordova-cookie-sharing" source="npm"/>-->
+    <plugin name="cordova-plugin-inappbrowser-wkwebview" source="npm"/>
+    <plugin name="cordova-cookie-sharing" source="npm"/>
     <!--<plugin name="cordova-plugin-file-chooser" source="npm"/>-->
-    <!--<plugin name="cordova-plugin-whitelist" source="npm"/>-->
+    <plugin name="cordova-plugin-whitelist" source="npm"/>
     <!--<plugin name="cordova-plugin-splashscreen" source="npm" />-->
 
 
